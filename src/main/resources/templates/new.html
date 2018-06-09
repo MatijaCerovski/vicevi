@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <title>Home</title>
+</head>
+<body>
+
+
+<div th:include="components/navbar"></div>
+
+<div class="container-fluid">
+    <div class="row">
+
+        <aside class="col-2"></aside>
+
+        <div class="col-8" align="center">
+
+            <form th:action="@{/new}" th:object="${jokeForm}" method="post" class="form-horizontal">
+
+                <div class="form-group">
+                    <label class="col-md-2 control-label" for="content"> Joke Content: </label>
+                    <div class="col-md-6">
+                        <textarea class="form-control" rows="8" maxlength="5000" id="content" name="content" th:field="*{content}"></textarea>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="col-md-2 control-label" for="category"> Select Category </label>
+                    <div class="col-md-3">
+                        <select class="form-control" id="category" th:field="*{categoryId}">
+                            <option th:value="${null}"> -- </option>
+                            <option th:each="category : ${categories}"
+                                    th:value="${category.id}"
+                                    th:text="${category.name}">
+                            </option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="form-group" th:if="${errorMessage}">
+                    <div class="col-sm-offset-2 col-sm-3">
+                        <div class="alert alert-danger">
+                            <p class="error" th:text="${errorMessage}"></p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <div class="col-sm-offset-2 col-sm-10">
+                        <input type="submit" class="btn btn-primary" value="Submit"/>
+                    </div>
+                </div>
+
+
+            </form>
+        </div>
+
+        <aside class="col-2"></aside>
+
+    </div>
+
+</div>
+
+</body>
+</html>
